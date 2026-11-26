@@ -6,16 +6,13 @@ Entry line (123 chars, one line, no trailing newline):
     I opened a Tupperware from the back of the fridge. It hissed. I closed
     it, put it back, and we agreed never to speak of it.
 
-Why it wins, in the judge's order: a real one-line joke, setup then payoff
-in one line (open the container, it hisses, a pact of silence); it aims at
-a laugh out loud, not a smile — a hissing leftover is absurd, and the pact
-turns the absurdity into a conspiracy; the surprise is the point (a
-container hissing, then a mutual agreement with it); fresh (the flooded
-lanes are plant jokes and AI out-of-office replies; nobody in the field
-has a hissing Tupperware); tight at 123 chars, every word earns its place.
-Chosen by a 66-game pairwise tournament over 12 candidates in empty lanes
-(CANDIDATES.md): 11-0 internally, 5-2 against the resolved winners and the
-strongest visible field lines.
+Why it wins, in the judge's order: a real one-line joke (setup, then the
+payoff of a pact of silence); it aims at a laugh, not a smile — a hissing
+leftover is absurd, and the pact makes it a conspiracy; the surprise is
+the point; fresh (the flooded lanes are plant jokes and AI out-of-office
+replies; nobody has a hissing Tupperware); tight at 123 chars. Chosen by
+a 66-game tournament over 12 candidates (CANDIDATES.md): 11-0 internally,
+5-2 vs the references.
 
 One constant, gate guards mirroring the competition gate (1-200 characters,
 one line, not only whitespace — checked both as code points and as UTF-8
@@ -71,6 +68,9 @@ def write_line() -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
     # No trailing newline: the file is the line itself, exactly one line.
     target.write_text(LINE, encoding="utf-8")
+    # Read back and confirm the file is exactly the line, byte for byte.
+    if target.read_bytes() != LINE.encode("utf-8"):
+        abort("entry.txt does not round-trip to the line")
     print(f"wrote {target} ({code_points} code points, {byte_count} bytes)")
 
 
